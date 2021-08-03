@@ -1,6 +1,7 @@
 import { sqlExecute } from "../../database/Connection";
 import { User } from "../../entities/User";
 import { IUserRepository } from "../IUserRepository";
+import { hash }  from 'bcryptjs'
 
 export class PostgresUsersRepository implements IUserRepository {
 
@@ -17,10 +18,12 @@ export class PostgresUsersRepository implements IUserRepository {
     }
 
     async save(user: User): Promise<void> {
+
+        const passwordHash = await hash(user.password, 8)
         
         const sqlSave = {
             text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3)',
-            values: [user.name, user.email, user.password]
+            values: [user.name, user.email, passwordHash]
         }
 
         try {
