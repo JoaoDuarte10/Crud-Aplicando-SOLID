@@ -13,4 +13,4 @@ const sqlExecute = {
     query: (text: string, params: any) => pool.query(text, params)
 }
 
-export { sqlExecute }
+export { sqlExecute, pool }
