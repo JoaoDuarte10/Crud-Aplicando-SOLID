@@ -49,4 +49,17 @@ export class PostgresUsersRepository implements IUserRepository {
             return error.message
         }
     }
+
+    async update(name: string, email: string, password: string, id: string): Promise<void> {
+        const sqlUpdate = {
+            text: 'UPDATE users SET name=$1, email=$2, password=$3 WHERE id_user=$4',
+            values: [name, email, password, id]
+        }
+        try {
+            await sqlExecute.query(sqlUpdate.text, sqlUpdate.values)
+            
+        } catch (error) {
+            return error.message
+        }
+    }
 }

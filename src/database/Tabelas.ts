@@ -10,7 +10,7 @@ class Tabelas {
             name varchar(256) NOT NULL,
             email varchar(256) NOT NULL,
             password varchar(256) NOT NULL,
-            created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+            created_at TIMESTAMP NOT NULL DEFAULT NOW()
         );
         `;
         pool.query(tabelas, (err)=>{
