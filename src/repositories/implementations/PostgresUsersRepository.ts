@@ -15,6 +15,17 @@ export class PostgresUsersRepository implements IUserRepository {
         return rows[0]
     }
 
+    async findById(id: string): Promise<any> {
+        const sqlId = {
+            text: 'SELECT * FROM users WHERE id_user=$1',
+            values: [id]
+        }
+
+        const { rows } = await sqlExecute.query(sqlId.text, sqlId.values)
+
+        return rows;
+    }
+
     async findAll(): Promise<any> {
         const sqlAll = {
             text: 'SELECT * FROM users'
